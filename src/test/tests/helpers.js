@@ -29,6 +29,7 @@ import MathMulHelper from "helpers/MathMulHelper";
 import MathDivHelper from "helpers/MathDivHelper";
 import FormatViewersHelper from "helpers/FormatViewersHelper";
 import FormatTimeHelper from "helpers/FormatTimeHelper";
+import FormatFilesizeHelper from "helpers/FormatFilesizeHelper";
 import HoursFromNowHelper from "helpers/HoursFromNowHelper";
 import TimeFromNowHelper from "helpers/TimeFromNowHelper";
 import GetParamHelper from "helpers/GetParamHelper";
@@ -313,6 +314,62 @@ test( "Format time", function( assert ) {
 		get( component, "time" ).getDate(),
 		"Format time using a custom format"
 	);
+
+});
+
+
+test( "Format file size", function( assert ) {
+
+	owner.register( "helper:format-filesize", FormatFilesizeHelper );
+	component = Component.extend({
+		size  : "",
+		layout: compile( "{{format-filesize size}}" )
+	}).create();
+	setOwner( component, owner );
+
+	runAppend( component );
+	assert.equal( getOutput( component ), "?", "Unexpected values" );
+	run( component, "set", "size", "foo" );
+	assert.equal( getOutput( component ), "?", "Unexpected values" );
+
+	run( component, "set", "size", Math.pow( 2, 10 * 0 ) );
+	assert.equal( getOutput( component ), "1 Bytes", "One Byte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 1 ) - 1 );
+	assert.equal( getOutput( component ), "1023 Bytes", "Almost one Kibibyte" );
+
+	run( component, "set", "size", Math.pow( 2, 10 * 1 ) );
+	assert.equal( getOutput( component ), "1.0 KiB", "One Kibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 1 ) * 1000 - 1 );
+	assert.equal( getOutput( component ), "999.9 KiB", "Almost one thousand Kibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 1 ) * 1000 );
+	assert.equal( getOutput( component ), "1000 KiB", "One thousand Kibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 2 ) - 1 );
+	assert.equal( getOutput( component ), "1023 KiB", "Almost one Mibibyte" );
+
+	run( component, "set", "size", Math.pow( 2, 10 * 2 ) );
+	assert.equal( getOutput( component ), "1.0 MiB", "One Mibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 2 ) * 1000 - 1 );
+	assert.equal( getOutput( component ), "999.9 MiB", "Almost one thousand Mibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 2 ) * 1000 );
+	assert.equal( getOutput( component ), "1000 MiB", "One thousand Mibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 3 ) - 1 );
+	assert.equal( getOutput( component ), "1023 MiB", "Almost one Gibibyte" );
+
+	run( component, "set", "size", Math.pow( 2, 10 * 3 ) );
+	assert.equal( getOutput( component ), "1.0 GiB", "One Gibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 3 ) * 1000 - 1 );
+	assert.equal( getOutput( component ), "999.9 GiB", "Almost one thousand Gibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 3 ) * 1000 );
+	assert.equal( getOutput( component ), "1000 GiB", "One thousand Gibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 4 ) - 1 );
+	assert.equal( getOutput( component ), "1023 GiB", "Almost one Tibibyte" );
+
+	run( component, "set", "size", Math.pow( 2, 10 * 4 ) );
+	assert.equal( getOutput( component ), "1.0 TiB", "One Tibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 4 ) * 1000 - 1 );
+	assert.equal( getOutput( component ), "999.9 TiB", "Almost one thousand Tibibyte" );
+	run( component, "set", "size", Math.pow( 2, 10 * 4 ) * 1000 );
+	assert.equal( getOutput( component ), "1000 TiB", "One thousand Tibibyte" );
 
 });
 

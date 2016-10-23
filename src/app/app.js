@@ -91,6 +91,7 @@ import MathMulHelper from "helpers/MathMulHelper";
 import MathDivHelper from "helpers/MathDivHelper";
 import FormatViewersHelper from "helpers/FormatViewersHelper";
 import FormatTimeHelper from "helpers/FormatTimeHelper";
+import FormatFilesizeHelper from "helpers/FormatFilesizeHelper";
 import HoursFromNowHelper from "helpers/HoursFromNowHelper";
 import TimeFromNowHelper from "helpers/TimeFromNowHelper";
 import GetParamHelper from "helpers/GetParamHelper";
@@ -384,6 +385,7 @@ export default Application.create({
 	MathDivHelper,
 	FormatViewersHelper,
 	FormatTimeHelper,
+	FormatFilesizeHelper,
 	HoursFromNowHelper,
 	TimeFromNowHelper,
 	GetParamHelper,
