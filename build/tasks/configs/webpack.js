@@ -117,6 +117,15 @@ var loaderBabelProd = {
 };
 
 
+var testFolders = {
+	root: pTest,
+	alias: {
+		"tests": r( pTest, "tests" ),
+		"fixtures": r( pTest, "fixtures" )
+	}
+};
+
+
 module.exports = {
 	// common options
 	// the grunt-webpack merges the "options" objects with each task config (nested)
@@ -350,12 +359,7 @@ module.exports = {
 			path: "<%= dir.tmp_test %>"
 		},
 
-		resolve: {
-			root: pTest,
-			alias: {
-				"tests": r( pTest, "tests" )
-			}
-		},
+		resolve: testFolders,
 
 		target: "node-webkit",
 
@@ -386,12 +390,7 @@ module.exports = {
 		entry: "main-dev",
 		devtool: "source-map",
 
-		resolve: {
-			root: pTest,
-			alias: {
-				"tests": r( pTest, "tests" )
-			}
-		},
+		resolve: testFolders,
 
 		target: "node-webkit",
 
