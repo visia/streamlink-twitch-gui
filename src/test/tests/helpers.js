@@ -441,6 +441,39 @@ test( "Hours from now with interval", function( assert ) {
 });
 
 
+test( "Hours from now with seconds", function( assert ) {
+
+	owner.register( "helper:hours-from-now", HoursFromNowHelper );
+	component = Component.extend({
+		seconds: true,
+		text: false,
+		date: +new Date(),
+		layout: compile( "{{hours-from-now date seconds=seconds secondsText=text}}" )
+	}).create();
+	setOwner( component, owner );
+
+	runAppend( component );
+	assert.equal( getOutput( component ), "0s", "Zero seconds" );
+
+	run( () => set( component, "date", +new Date() - 59500 ) );
+	assert.equal( getOutput( component ), "59s", "Almost one minute" );
+
+	run( () => set( component, "date", +new Date() - 60000 ) );
+	assert.equal( getOutput( component ), "01m", "One minute" );
+
+	run( () => {
+		set( component, "seconds", false );
+		set( component, "text", "Less than a minute" );
+		set( component, "date", +new Date() );
+	});
+	assert.equal( getOutput( component ), "Less than a minute", "Custom text" );
+
+	run( () => set( component, "date", +new Date() - 60000 ) );
+	assert.equal( getOutput( component ), "01m", "No custom text after a minute" );
+
+});
+
+
 test( "Time from now", function( assert ) {
 
 	owner.register( "helper:time-from-now", TimeFromNowHelper );

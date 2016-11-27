@@ -7,6 +7,13 @@ const hour   = 60 * minute;
 const day    = 24 * hour;
 
 
+function formatSeconds( diff ) {
+	if ( diff <= 0 ) { return "0s"; }
+	let strSeconds = Math.floor( diff / second ).toFixed( 0 );
+
+	return `${strSeconds}s`;
+}
+
 function formatMinutes( diff, short ) {
 	let minutes = Math.floor( diff / minute );
 
@@ -42,11 +49,13 @@ function formatDays( diff ) {
 
 
 export default FromNowHelper.extend({
-	_compute( params ) {
+	_compute( params, options ) {
 		let diff = +new Date() - params[0];
 
 		return diff < minute
-			? "just now"
+			? options.seconds
+				? formatSeconds( diff )
+				: options.secondsText || "just now"
 			: diff < hour
 				? formatMinutes( diff )
 				: diff < day
