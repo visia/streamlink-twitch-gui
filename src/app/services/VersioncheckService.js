@@ -105,7 +105,7 @@ export default Service.extend({
 	},
 
 	getReleases() {
-		get( this, "store" ).findRecord( "githubReleases", "latest", { reload: true } )
+		get( this, "store" ).findRecord( "githubRelease", "latest", { reload: true } )
 			.then( this.checkRelease.bind( this ) );
 	},
 

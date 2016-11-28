@@ -17,9 +17,11 @@ import Auth from "models/localstorage/Auth";
 import Search from "models/localstorage/Search";
 import ChannelSettings from "models/localstorage/ChannelSettings";
 
-import GithubReleases from "models/github/Releases";
-import GithubReleasesAdapter from "store/GithubAdapter";
-import GithubReleasesSerializer from "models/github/ReleasesSerializer";
+import GithubRelease from "models/github/Release";
+import GithubReleaseAdapter from "store/GithubAdapter";
+import GithubReleaseSerializer from "models/github/ReleaseSerializer";
+import GithubReleaseAsset from "models/github/ReleaseAsset";
+import GithubReleaseAssetSerializer from "models/github/ReleaseAssetSerializer";
 
 import TwitchToken from "models/twitch/Token";
 import TwitchTokenSerializer from "models/twitch/TokenSerializer";
@@ -307,9 +309,11 @@ export default Application.create({
 
 
 	// Models: github
-	GithubReleases,
-	GithubReleasesAdapter,
-	GithubReleasesSerializer,
+	GithubRelease,
+	GithubReleaseAdapter,
+	GithubReleaseSerializer,
+	GithubReleaseAsset,
+	GithubReleaseAssetSerializer,
 
 
 	// Models: twitch
