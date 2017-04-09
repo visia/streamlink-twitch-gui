@@ -126,6 +126,7 @@ import TwitchCommunitySerializer from "models/twitch/CommunitySerializer";
 import TwitchCommunityTop from "models/twitch/CommunityTop";
 import TwitchCommunityTopSerializer from "models/twitch/CommunityTopSerializer";
 
+import THelper from "helpers/THelper";
 import IsEqualHelper from "helpers/IsEqualHelper";
 import IsNullHelper from "helpers/IsNullHelper";
 import IsGtHelper from "helpers/IsGtHelper";
@@ -144,6 +145,7 @@ import TimeFromNowHelper from "helpers/TimeFromNowHelper";
 import GetParamHelper from "helpers/GetParamHelper";
 import GetIndexHelper from "helpers/GetIndexHelper";
 
+import I18nService from "services/I18nService";
 import NwjsService from "services/NwjsService";
 import SettingsService from "services/SettingsService";
 import AuthService from "services/AuthService";
@@ -497,6 +499,7 @@ export default {
 
 
 	// Helpers
+	THelper,
 	IsEqualHelper,
 	IsNullHelper,
 	IsGtHelper,
@@ -517,6 +520,7 @@ export default {
 
 
 	// Services
+	I18nService,
 	NwjsService,
 	SettingsService,
 	AuthService,

@@ -3,6 +3,8 @@ import "./model-fragments";
 import "./settings-streaming-player";
 import "./settings-chat-provider";
 import "./store";
+import "./env";
+import "./i18n";
 import "./routing-service";
 import "./application-view";
 import "./nwjs";
