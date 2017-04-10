@@ -1,6 +1,5 @@
 import {
 	get,
-	computed,
 	inject,
 	Component
 } from "ember";
@@ -29,21 +28,6 @@ export default Component.extend({
 
 	displayName,
 	isDebug,
-
-	userTitle: computed(
-		"auth.session.isLoggedIn",
-		"auth.session.user_name",
-		"notification.statusText",
-		function() {
-			if ( !get( this, "auth.session.isLoggedIn" ) ) {
-				return "You're not logged in";
-			}
-			const user = get( this, "auth.session.user_name" );
-			const notifications = get( this, "notification.statusText" );
-
-			return `Logged in as ${user}\n${notifications}`;
-		}
-	),
 
 
 	actions: {

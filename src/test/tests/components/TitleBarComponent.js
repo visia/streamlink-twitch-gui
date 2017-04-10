@@ -7,6 +7,7 @@ import {
 	set,
 	run,
 	Component,
+	Helper,
 	EventDispatcher,
 	Service
 } from "ember";
@@ -46,6 +47,7 @@ module( "components/TitleBarComponent", {
 		this.eventDispatcher.setup( {}, fixtureElement );
 		this.owner = buildOwner();
 		this.owner.register( "event_dispatcher:main", this.eventDispatcher );
+		this.owner.register( "helper:t", Helper.helper( params => params.join( "" ) ) );
 		this.owner.register( "component:title-bar", TitleBarComponent );
 		this.owner.register( "component:search-bar", Component.extend({
 			classNames: "search-bar-component"
@@ -186,7 +188,7 @@ test( "TitleBarComponent", function( assert ) {
 
 	assert.strictEqual(
 		getElem( this.subject, ".btn-user" ).attr( "title" ),
-		"Logged in as user\nNotifications are enabled",
+		"titlebar.loggedin",
 		"The user button does have the correct title while being logged in"
 	);
 
@@ -258,7 +260,7 @@ test( "TitleBarComponent", function( assert ) {
 
 	assert.strictEqual(
 		getElem( this.subject, ".btn-no-user" ).attr( "title" ),
-		"You're not logged in",
+		"titlebar.loggedout",
 		"The no-user button does have the correct title while not being logged in"
 	);
 
