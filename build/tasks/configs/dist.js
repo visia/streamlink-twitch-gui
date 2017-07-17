@@ -26,6 +26,11 @@ module.exports = {
 		tasks: [ "compress:linux64" ],
 		checksum: "<%= compress.linux64.options.archive %>"
 	},
+	linuxarm64archive: {
+		platform: "linuxarm64",
+		tasks: [ "compress:linuxarm64" ],
+		checksum: "<%= compress.linuxarm64.options.archive %>"
+	},
 
 	win32installer: {
 		platform: "win32",

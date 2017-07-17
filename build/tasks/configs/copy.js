@@ -26,6 +26,13 @@ module.exports = {
 		src    : "<%= dir.resources %>/linux/*.sh",
 		dest   : "<%= dir.releases %>/<%= package.name %>/linux64/"
 	},
+	linuxarm64scripts: {
+		options: { mode: 493 }, // 0755 (js strict mode)
+		expand : true,
+		flatten: true,
+		src    : "<%= dir.resources %>/linux/*.sh",
+		dest   : "<%= dir.releases %>/<%= package.name %>/linuxarm64/"
+	},
 
 	linux32icons: {
 		expand : true,
@@ -38,5 +45,11 @@ module.exports = {
 		flatten: true,
 		src    : "<%= dir.resources %>/icons/*.png",
 		dest   : "<%= dir.releases %>/<%= package.name %>/linux64/icons/"
+	},
+	linuxarm64icons: {
+		expand : true,
+		flatten: true,
+		src    : "<%= dir.resources %>/icons/*.png",
+		dest   : "<%= dir.releases %>/<%= package.name %>/linuxarm64/icons/"
 	}
 };

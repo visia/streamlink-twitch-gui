@@ -47,7 +47,7 @@
 		"eslint-loader": "1.7.0",
 		"load-grunt-config": "0.19.2",
 		"chrome-remote-interface": "0.16.2",
-		"nw-builder": "3.2.0"
+		"nw-builder": "bastimeyer/nw-builder#linux-arm64"
 	},
 
 	"scripts": {

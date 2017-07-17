@@ -40,6 +40,7 @@ module.exports = {
 	release_osx64: [ "<%= dir.releases %>/<%= package.name %>/osx64/**" ],
 	release_linux32: [ "<%= dir.releases %>/<%= package.name %>/linux32/**" ],
 	release_linux64: [ "<%= dir.releases %>/<%= package.name %>/linux64/**" ],
+	release_linuxarm64: [ "<%= dir.releases %>/<%= package.name %>/linuxarm64/**" ],
 
 	win32installer: [ "<%= dir.tmp_installer %>/win32installer/**" ],
 	win64installer: [ "<%= dir.tmp_installer %>/win64installer/**" ]

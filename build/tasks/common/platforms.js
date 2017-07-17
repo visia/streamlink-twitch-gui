@@ -21,6 +21,10 @@ module.exports = {
 		linux64: {
 			platform: "linux",
 			arch    : "x64"
+		},
+		linuxarm64: {
+			platform: "linux",
+			arch    : "arm64"
 		}
 	},
 

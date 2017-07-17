@@ -55,5 +55,16 @@ module.exports = {
 		cwd    : "<%= dir.releases %>/<%= package.name %>/linux64",
 		src    : [ "**" ],
 		dest   : "<%= package.name %>"
+	},
+	linuxarm64: {
+		options: {
+			mode   : "tgz",
+			level  : 9,
+			archive: "<%= dir.dist %>/<%= package.name %>-v<%= package.version %>-linuxarm64.tar.gz"
+		},
+		expand : true,
+		cwd    : "<%= dir.releases %>/<%= package.name %>/linuxarm64",
+		src    : [ "**" ],
+		dest   : "<%= package.name %>"
 	}
 };

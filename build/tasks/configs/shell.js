@@ -8,6 +8,9 @@ module.exports = {
 	permissions_linux64: {
 		command: "chmod -R g=u,o=u,g-w,o-w <%= dir.releases %>/<%= package.name %>/linux64"
 	},
+	permissions_linuxarm64: {
+		command: "chmod -R g=u,o=u,g-w,o-w <%= dir.releases %>/<%= package.name %>/linuxarm64"
+	},
 
 	win32installer: {
 		command: [

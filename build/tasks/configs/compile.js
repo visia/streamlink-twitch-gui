@@ -28,5 +28,13 @@ module.exports = {
 			"copy:linux64icons",
 			"shell:permissions_linux64"
 		]
+	},
+	linuxarm64: {
+		before: [ "clean:release_linuxarm64" ],
+		after : [
+			"copy:linuxarm64scripts",
+			"copy:linuxarm64icons",
+			"shell:permissions_linuxarm64"
+		]
 	}
 };

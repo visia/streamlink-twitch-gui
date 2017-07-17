@@ -25,6 +25,11 @@ const filesLinux64 = [
 	"!build/tmp/prod/bin/win32/**",
 	"!build/tmp/prod/bin/win64/**"
 ];
+const filesLinuxArm64 = [
+	...files,
+	"!build/tmp/prod/bin/win32/**",
+	"!build/tmp/prod/bin/win64/**"
+];
 
 
 module.exports = {
@@ -76,6 +81,13 @@ module.exports = {
 		options: {
 			files: filesLinux64,
 			platforms: [ "linux64" ]
+		}
+	},
+	linuxarm64: {
+		options: {
+			files: filesLinuxArm64,
+			platforms: [ "linuxarm64" ],
+			manifestUrl: "http://127.0.0.1:8080/versions.json"
 		}
 	}
 };
