@@ -1,10 +1,17 @@
-const consoleMethod = "info";
+const { writeFile } = require( "fs" );
+const {
+	relative,
+	resolve: resolvePath
+} = require( "path" );
+
 
 /**
  * @returns {Promise}
  */
 module.exports = function( grunt, options, cdp ) {
 	const UUID = `qunit_${Date.now()}_${Math.random().toString( 36 ).substring( 2, 15 )}`;
+	const consoleMethod = "info";
+
 
 	function promiseQUnitBridge( resolve, reject ) {
 		let started = false;
@@ -143,6 +150,33 @@ module.exports = function( grunt, options, cdp ) {
 	}
 
 
+	function checkCoverageFile( resolve, reject ) {
+		cdp.send( "Runtime.evaluate", {
+			expression: "this.__coverage__?JSON.stringify(this.__coverage__):false"
+		})
+			.then( ({ result: { type, value } }) => {
+				if ( type !== "string" || !value ) { return; }
+
+				const fileCov = grunt.config( "file.coverage" );
+				if ( !fileCov ) {
+					return grunt.fail.fatal( "Missing \"file.coverage\" config definition" );
+				}
+				const fileCovRel = relative( resolvePath( "." ), fileCov );
+
+				return new Promise( resolve => writeFile( fileCov, value, err => {
+					if ( err ) {
+						grunt.log.warn( `Could not write coverage file: ${fileCovRel}` );
+					} else {
+						grunt.log.ok( `Coverage file written: ${fileCovRel}` );
+					}
+					resolve();
+				}) );
+			})
+			.then( resolve, reject );
+	}
+
+
 	return cdp.send( "Runtime.enable" )
-		.then( () => new Promise( promiseQUnitBridge ) );
+		.then( () => new Promise( promiseQUnitBridge ) )
+		.then( () => new Promise( checkCoverageFile ) );
 };

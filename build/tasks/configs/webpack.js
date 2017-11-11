@@ -168,6 +168,19 @@ const loaderBabelTest = {
 	}
 };
 
+const loaderIstanbulInstrumenter = {
+	test: /\.js$/,
+	loader: "istanbul-instrumenter-loader",
+	options: {
+		esModules: true
+	},
+	enforce: "post",
+	include: [
+		pApp,
+		pTest
+	]
+};
+
 
 module.exports = {
 	// common options
@@ -467,6 +480,54 @@ module.exports = {
 
 			// ignore Windows binary dependencies in tests
 			new webpack.IgnorePlugin( /\.exe$/ )
+		]
+	},
+
+
+	coverage: {
+		output: {
+			path: "<%= dir.tmp_test %>"
+		},
+
+		entry: "main-coverage",
+		devtool: "source-map",
+
+		resolve: {
+			modules: [
+				pTest,
+				...resolveModuleDirectories
+			],
+			alias: {
+				"tests": r( pTest, "tests" )
+			}
+		},
+
+		target: "node-webkit",
+
+		module: {
+			rules: [
+				loaderBabelTest,
+				loaderIstanbulInstrumenter,
+				...commonLoaders
+			]
+		},
+
+		plugins: [
+			// NW.js package.json
+			new CopyWebpackPlugin([
+				{ from: r( pTest, "package.json" ) }
+			]),
+
+			new HtmlWebpackPlugin({
+				inject: "body",
+				hash: false,
+				template: r( pTest, "index.html" )
+			}),
+
+			new webpack.DefinePlugin({
+				DEBUG: false,
+				PATHFIXTURES: JSON.stringify( pTestFixtures )
+			})
 		]
 	},
 
