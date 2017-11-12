@@ -1,0 +1,12 @@
+comment: false
+coverage:
+    range: 0..100
+    round: down
+    precision: 2
+    notify: false
+    status:
+        changes: false
+        patch: false
+        project:
+            default:
+                target: 0

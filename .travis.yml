@@ -46,6 +46,10 @@ script:
   # compile and package
   - if [ -n "${TRAVIS_TAG}" ]; then build/travis/package.sh; fi
 
+after_success:
+  # upload coverage reports
+  - bash <(curl -s https://codecov.io/bash) -f build/tmp/coverage.json
+
 deploy:
   - provider: releases
     api_key: "${RELEASES_API_KEY}"
