@@ -22,64 +22,29 @@ export default Fragment.extend({
 }).reopenClass({
 
 	providers: [
-		{
-			value: "auto",
-			label: {
-				name: "Automatic selection",
-				description: "Tries to find the best notification provider",
-				notes: "Tests all available notification providers in descending order"
-			}
-		},
-		{
-			value: "native",
-			label: {
-				name: "Native notifications",
-				description: "Uses the system's native notification system",
-				notes: "Notifications can be configured in the system preferences"
-			}
-		},
-		{
-			value: "snoretoast",
-			label: {
-				name: "Windows toast notifications",
-				description: "Native notifications on Windows 8+",
-				notes: "\"Banner notifications\" need to be enabled in the system preferences"
-			}
-		},
-		{
-			value: "growl",
-			label: {
-				name: "Growl notifications",
-				description: "Third-party notification service for Windows, macOS and Linux",
-				notes: "Requires Growl to be installed and running on the system"
-			}
-		},
-		{
-			value: "rich",
-			label: {
-				name: "Rich notifications",
-				description: "Chromium rich notifications",
-				notes: "Rendered by the application itself"
-			}
-		}
+		{ value: "auto" },
+		{ value: "native" },
+		{ value: "snoretoast" },
+		{ value: "growl" },
+		{ value: "rich" }
 	],
 
 	filter: [
-		{ value: true, label: "Show all except disabled ones" },
-		{ value: false, label: "Ignore all except enabled ones" }
+		{ value: true, label: "blacklist" },
+		{ value: false, label: "whitelist" }
 	],
 
 	click: [
-		{ id: ATTR_NOTIFY_CLICK_NOOP, label: "Do nothing" },
-		{ id: ATTR_NOTIFY_CLICK_FOLLOWED, label: "Go to favorites" },
-		{ id: ATTR_NOTIFY_CLICK_STREAM, label: "Open stream" },
-		{ id: ATTR_NOTIFY_CLICK_STREAMANDCHAT, label: "Open stream+chat" }
+		{ id: ATTR_NOTIFY_CLICK_NOOP, label: "noop" },
+		{ id: ATTR_NOTIFY_CLICK_FOLLOWED, label: "followed" },
+		{ id: ATTR_NOTIFY_CLICK_STREAM, label: "stream" },
+		{ id: ATTR_NOTIFY_CLICK_STREAMANDCHAT, label: "stream-and-chat" }
 	],
 
 	click_group: [
-		{ id: ATTR_NOTIFY_CLICK_NOOP, label: "Do nothing" },
-		{ id: ATTR_NOTIFY_CLICK_FOLLOWED, label: "Go to favorites" },
-		{ id: ATTR_NOTIFY_CLICK_STREAM, label: "Open all streams" },
-		{ id: ATTR_NOTIFY_CLICK_STREAMANDCHAT, label: "Open all streams+chats" }
+		{ id: ATTR_NOTIFY_CLICK_NOOP, label: "noop" },
+		{ id: ATTR_NOTIFY_CLICK_FOLLOWED, label: "followed" },
+		{ id: ATTR_NOTIFY_CLICK_STREAM, label: "stream" },
+		{ id: ATTR_NOTIFY_CLICK_STREAMANDCHAT, label: "stream-and-chat" }
 	]
 });
