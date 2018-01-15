@@ -1,49 +1,56 @@
 <fieldset>
 {{#settings-row
-	"Chat application"
-	"Choose the chat application."
+	(t "settings.chat.provider.title")
+	(t "settings.chat.provider.description")
 	icon="fa-twitch"
 	notes=(if (is-equal model.chat.provider "browser")
-		"Choosing the default browser may result in unwanted, non-minimal window sizes."
+		(t "settings.chat.provider.notes-browser")
 	)
 }}
-	{{drop-down
+	{{#drop-down
 		value=model.chat.provider
 		content=providersDropDown
+		as |item|
 	}}
+		<li class="{{if item.selected 'selected'}}" {{action item.action item bubbles=false}}>
+			{{t (concat "settings.chat.provider.providers." item.value ".label")}}
+		</li>
+	{{/drop-down}}
 {{/settings-row}}
 
-{{#each providerAttributes as |attributes name|}}
+{{#each providerAttributes as |attributes provider|}}
 	{{#each attributes as |attribute|}}
 		{{#settings-row
-			attribute.options.title
-			attribute.options.description
+			(t (concat "settings.chat.provider.providers." provider ".attributes." attribute.name ".title"))
+			(t (concat "settings.chat.provider.providers." provider ".attributes." attribute.name ".description"))
 			icon=attribute.options.icon
 			substitutions=(if attribute.options.isArgs userArgsSubstitutions)
-			isVisible=(is-equal model.chat.provider name)
+			isVisible=(is-equal model.chat.provider provider)
 		}}
 			{{#if (is-equal attribute.type "string")}}
 				{{#if attribute.options.isFile}}
 					{{file-select
-						value=(mut (get (get model.chat.providers name) attribute.name))
+						value=(mut (get (get model.chat.providers provider) attribute.name))
 						inputClass="form-control"
-						placeholder=(if (is-equal name "custom")
-							"Setting an executable path is required"
-							(get (get chatConfig name) attribute.name)
+						placeholder=(if (is-equal provider "custom")
+							(t "settings.chat.provider.file-placeholder")
+							(get (get chatConfig provider) attribute.name)
 						)
 					}}
 				{{else}}
 					{{input
 						type="text"
 						classNames="col-xs-12"
-						value=(mut (get (get model.chat.providers name) attribute.name))
-						placeholder=(if attribute.options.isArgs "Set additional parameters")
+						value=(mut (get (get model.chat.providers provider) attribute.name))
+						placeholder=(if attribute.options.isArgs
+							(t "settings.chat.provider.params-placeholder")
+						)
 					}}
 				{{/if}}
 			{{else if (is-equal attribute.type "boolean")}}
 				{{check-box
-					attribute.options.text
-					checked=(mut (get (get model.chat.providers name) attribute.name))
+					(t (concat "settings.chat.provider.providers." provider ".attributes." attribute.name ".checkbox"))
+					checked=(mut (get (get model.chat.providers provider) attribute.name))
 				}}
 			{{/if}}
 		{{/settings-row}}
@@ -53,19 +60,19 @@
 
 <fieldset>
 {{#settings-row
-	"Open chat"
-	"While launching streams."
+	(t "settings.chat.chat-open.title")
+	(t "settings.chat.chat-open.description")
 	icon="fa-comment"
 }}
 	<div>
 		{{check-box
-			"Automatically open chat"
+			(t "settings.chat.chat-open.checkbox")
 			checked=model.streams.chat_open
 		}}
 	</div>
 	<div>
 		{{check-box
-			"Don't open chat while launching streams via the context menu"
+			(t "settings.chat.chat-open.checkbox-context")
 			checked=model.streams.chat_open_context
 			disabled=(bool-not model.streams.chat_open)
 		}}
@@ -73,10 +80,13 @@
 {{/settings-row}}
 
 {{#settings-row
-	"Twitch emotes"
-	"Button that opens up twitchemotes.com."
+	(t "settings.chat.twitchemotes.title")
+	(t "settings.chat.twitchemotes.description")
 	icon="fa-smile-o"
 }}
-	{{check-box "Show emotes button in stream popups" checked=model.streams.twitchemotes}}
+	{{check-box
+		(t "settings.chat.twitchemotes.checkbox")
+		checked=model.streams.twitchemotes
+	}}
 {{/settings-row}}
 </fieldset>
